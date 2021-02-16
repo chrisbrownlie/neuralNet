@@ -1,5 +1,5 @@
 # neuralNet
-Implementing neural networks from scratch or with minimal dependencies.
+Implementing neural networks in Python from scratch or with minimal dependencies.
 
 This repository is for me to experiment implementing various neural network architectures in Python 'from scratch' (without the use of a machine learning library).
 I aim to add to this repo over time with different network architectures. I am not aiming for this code to be used in production so efficiency is not an initial consideration and understanding the methods is my main priority. 
