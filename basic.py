@@ -28,7 +28,7 @@ class basicNet:
             print("Initialising random weights for layer " + str(i))
             weights = np.random.random((v, self.layers[i-1]))
             print("Weights have shape " + str(weights.shape))
-            bias = np.zeros((v, 1))
+            bias = np.zeros((1, v))
 
             params.append([weights, bias])
 
@@ -38,7 +38,9 @@ class basicNet:
         """
         Perform one forward propagation
         """
-        cache = [[self.x, np.transpose(self.x)]]
+        cache = [[self.x, self.x]]
+
+        print("Beginning forward pass...")
 
         for i, v in enumerate(self.layers):
             if i == 0:
@@ -46,12 +48,10 @@ class basicNet:
             print("Propagating from layer " + str(i-1) + " to layer " + str(i))
 
             # Transform the bias to the correct shape
-            b_matrix = np.repeat(np.asarray(self.params[i][1]), self.layers[i-1])
+            b_matrix = np.tile(self.params[i][1], (self.x.shape[0], 1))
 
-            print(self.params[i][0].shape)
-            print(cache[i-1][0].shape)
-            # Calculate neruon value pre activation
-            neuron_outputs = np.matmul(self.params[i][0], np.transpose(cache[i-1][0]))
+            # Calculate neuron value pre activation
+            neuron_outputs = np.matmul(cache[i-1][0], np.transpose(self.params[i][0])) + b_matrix
 
             # Activated neuron outputs
             activated_outputs = sigmoid(neuron_outputs)
