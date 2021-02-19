@@ -60,6 +60,19 @@ class basicNet:
 
         self.output_cache = cache
 
+    def compute_cost(self):
+        """
+        Compute cost
+        """
+        final_activation = self.output_cache[len(self.layers)][1]
+
+        # Use binary cross entropy loss
+        log_loss = np.matmul(np.log(final_activation), self.y) + np.matmul(np.log(1-final_activation), (1-self.y))
+
+        cost = -(log_loss/self.x.shape[0])
+
+        self.cost = cost
+
 
 
 
