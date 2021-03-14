@@ -64,21 +64,30 @@ class basicNet:
         """
         Compute cost
         """
-        final_activation = self.output_cache[len(self.layers)][1]
+        print("Calculating cost using Mean Squared Error")
+        final_activation = self.output_cache[len(self.layers)-1][1]
 
-        # Use binary cross entropy loss
-        log_loss = np.matmul(np.log(final_activation), self.y) + np.matmul(np.log(1-final_activation), (1-self.y))
 
-        cost = -(log_loss/self.x.shape[0])
+        # Use mean squared error loss
+        mse = ((final_activation - self.y)**2).mean(axis = None)
 
-        self.cost = cost
+        self.cost = mse
+
+    def back_propagate(self):
+        """
+        Back propagate the error and store results
+        """
+        print("Backpropagating error")
+        
+    
 
 
 
 
 eg_x = np.random.random((100,4))
 eg_y = np.random.random((100,1))
-test = basicNet(eg_x, eg_y, 6, "sigmoid", 0.2)
+test = basicNet(eg_x, eg_y, 6, sigmoid, 0.2)
 
 test.initialise()
 test.forward_propagate()
+test.compute_cost()
